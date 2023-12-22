@@ -1,0 +1,21 @@
+{
+  "name": "media-replica",
+  "version": "1.0.0",
+  "description": "Syncs pictures from phone to hdd over ssh",
+  "scripts": {
+    "backup": "ts-node ./src/index.ts"
+  },
+  "main": "index.js",
+  "author": "Samer Almasri",
+  "license": "MIT",
+  "packageManager": "yarn@4.0.2",
+  "dependencies": {
+    "@types/dotenv": "^8.2.0",
+    "@types/node": "^20.10.5",
+    "@types/rsync": "^0.4.36",
+    "dotenv": "^16.3.1",
+    "rsync": "^0.6.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}
