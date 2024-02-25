@@ -1,7 +1,8 @@
-import { appendFileSync } from "fs";
+import * as assert from "assert";
+import { appendFileSync, existsSync } from "fs";
 import * as Rsync from "rsync";
+
 import { logFile } from "./log";
-import assert = require("assert");
 
 type RsyncStatic = typeof Rsync;
 type Rsync = ReturnType<RsyncStatic["build"]>;
@@ -55,6 +56,10 @@ export const syncMediaDir = async (
 ) => {
   assert(!sourceDir.endsWith("/"), "source path must not end with /");
   assert(!backupDir.endsWith("/"), "destination path must not end with /");
+  assert(
+    existsSync(backupDir),
+    `Backup destination does not exist: ${backupDir}`
+  );
   const syncCommand = Rsync.build({
     source: `phone:${sourceDir}/`,
     destination: `${backupDir}/`,

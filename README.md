@@ -21,3 +21,23 @@ Utility to back up photos from a phone directory to a designated hard drive back
 
 1. Create a _.env_ file based on the _.env.sample_
 2. Run `yarn backup`
+
+## Mounting External Disks
+
+1. `df -h` to find out the Filesystem name of both hard disks
+2. `umount [Filesystem]`
+3. `mount [Filesystem] [path]`
+
+In my case:
+
+```bash
+sudo umount /dev/sdd1
+sudo umount /dev/sdb1
+sudo mount /dev/sdd1 /mnt/drive1
+sudo mount /dev/sdb1 /mnt/drive2
+```
+
+## TODOs
+
+- rsync hdd1 with hdd2
+- Make `phone` ssh url configurable
