@@ -1,8 +1,16 @@
 import { existsSync, mkdirSync, writeFileSync } from "fs";
+import { DateTime } from "luxon";
 
-const now = new Date();
-const filename = `${now.toDateString().replaceAll(" ", "-")}-${now.getTime()}`;
-const logDir = `${__dirname}/../logs`;
-export const logFile = `${logDir}/${filename}`;
-if (!existsSync(logDir)) mkdirSync(logDir);
-writeFileSync(logFile, "");
+let logFilePath: string;
+
+export const logFile = () => {
+  if (!logFilePath) {
+    const now = DateTime.now().toFormat("dd.MM.yyyy-HH-mm-ss-SSS");
+    const filename = `${now}.log`;
+    const logDir = `${__dirname}/../logs`;
+    logFilePath = `${logDir}/${filename}`;
+    if (!existsSync(logDir)) mkdirSync(logDir);
+    writeFileSync(logFilePath, "");
+  }
+  return logFilePath;
+};

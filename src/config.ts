@@ -23,7 +23,9 @@ export const config = () => {
   return {
     phoneCamera,
     hddBackup,
-    ignoredFiles: JSON.parse(ignoredFiles).map((item: string) => item.trim()),
+    ignoredFiles: (JSON.parse(ignoredFiles) as string[]).map((item: string) =>
+      item.trim()
+    ),
     photoPrismImportPath,
     whatsappImages,
     whatsappVideo,

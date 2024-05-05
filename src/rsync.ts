@@ -27,13 +27,13 @@ const executeRsyncCommand = async (rsync: Rsync) => {
     (stdoutData: Buffer) => {
       const lines = stdoutData.toString().trim().split("\n");
       lines.forEach((line) => {
-        appendFileSync(logFile, `Rsync output: ${line}\n`);
+        appendFileSync(logFile(), `Rsync output: ${line}\n`);
         stdout.push(line);
       });
     },
     (stderrData: Buffer) => {
       const line = stderrData.toString().trim();
-      appendFileSync(logFile, `Rsync Error: ${line}\n`);
+      appendFileSync(logFile(), `Rsync Error: ${line}\n`);
       stderr.push(line);
     }
   );
