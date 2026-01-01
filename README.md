@@ -13,8 +13,8 @@ Utility to back up photos from a phone directory to a designated hard drive back
 ## Prerequisites
 
 - Node.js
-- `rsync` command is in the PATH
-- SSH access to the phone directory (I use [SimpleSSH](https://play.google.com/store/apps/details?id=com.begood.simplessh) on my phone)
+- `rsync` command is in the PATH: make sure it's the [upstream rsync](https://github.com/RsyncProject/rsync), not macOS's built it rsync implementation, the latter is known to cause issues when reporting progress
+- SSH access to the phone directory (I use [SimpleSSH](https://github.com/sutils/SimpleSSHD) on my phone)
 - HDD connected to the host where this is running
 
 ## Usage
@@ -22,22 +22,14 @@ Utility to back up photos from a phone directory to a designated hard drive back
 1. Create a _.env_ file based on the _.env.sample_
 2. Run `yarn backup`
 
-## Mounting External Disks
+## Troubleshooting: Mismatched File Timestamps
 
-1. `df -h` to find out the Filesystem name of both hard disks
-2. `umount [Filesystem]`
-3. `mount [Filesystem] [path]`
+If `rsync` reports existing files as needing sync due to mismatched modification times (mtime), this tool may incorrectly detect them as new files and attempt to re-import them into PhotoPrism, resulting in duplicates.
 
-In my case:
+To resolve this, synchronize the timestamps on your backup disk without transferring files:
 
-```bash
-sudo umount /dev/sdd1
-sudo umount /dev/sdb1
-sudo mount /dev/sdd1 /mnt/drive1
-sudo mount /dev/sdb1 /mnt/drive2
+```sh
+rsync -avt --existing --dry-run phone:[src] ./[dst]
 ```
 
-## TODOs
-
-- rsync hdd1 with hdd2
-- Make `phone` ssh url configurable
+This updates the mtime on the destination to match the source. Once complete, running `yarn backup` should correctly identify only new files.

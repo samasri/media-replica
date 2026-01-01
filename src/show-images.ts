@@ -62,7 +62,7 @@ const showImages = async (
   app.use(urlencodedMw({ extended: true }));
 
   return new Promise<string[]>((resolve) => {
-    app.post("/submit", (req, res) => {
+    app.post("/submit", (req: Request, res: Response) => {
       const selectedImages: string[] = [];
       for (const [key, value] of Object.entries(req.body))
         if (value === "yes") selectedImages.push(key);
