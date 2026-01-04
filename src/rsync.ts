@@ -107,8 +107,9 @@ export const syncMediaDir = async (
     `Backup destination does not exist: ${backupDir}`
   );
 
+  const escapedSourceDir = sourceDir.replace(/ /g, "\\ ");
   const syncCommand = Rsync.build({
-    source: `${host}:${sourceDir}/`,
+    source: `${host}:${escapedSourceDir}/`,
     destination: `${backupDir}/`,
     flags: "vt",
     shell: buildSSHCommand(sshPort, privateKey),
