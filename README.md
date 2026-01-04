@@ -1,14 +1,14 @@
 # Media Replica
 
-Utility to back up photos from a phone directory to a designated hard drive backup path and then import them into PhotoPrism (a self-hosted photo management tool). It uses `rsync` for file synchronization and `fs` for file handling in Node.js.
+Utility to back up photos from a phone directory to a designated hard drive backup path and then selectively import them into PhotoPrism (a self-hosted photo management tool). It uses `rsync` for file synchronization.js.
 
 ## Features
 
 - Synchronizes photo directories from a phone to a hard disk.
-- Filters out specific filenames to exclude from the backup.
-- Imports backed up photos into PhotoPrism for management and viewing.
-- Provides dry run capabilities to test the backup process without actual copying.
-- Logs activities in a _logs_ directory.
+- Can be configured to filter out specific filenames to exclude from the backup.
+- Imports backed up photos into PhotoPrism.
+- Provides dry run option to test the backup process without actual copying.
+- Logs rsync output in _./logs_ directory for future debugging.
 
 ## Prerequisites
 
